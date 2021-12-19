@@ -61,7 +61,9 @@ const { toString: uint8ArrayToString } = require('uint8arrays/to-string')
   console.log('pubsub subscribe')
 
   node.pubsub.on(topic, (msg) => {
-    console.log(`received: ${uint8ArrayToString(msg.data)}`)
+    console.log(`received: `, msg)
+    console.log(`received data: ${uint8ArrayToString(msg.data)}`)
+    console.log(`foo ${msg.from}`)
   })
 
 })();

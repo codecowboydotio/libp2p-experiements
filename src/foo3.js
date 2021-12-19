@@ -62,7 +62,7 @@ const express = require('express')
   console.log('pubsub subscribe')
 
   node.pubsub.on(topic, (msg) => {
-    console.log(`received: ${uint8ArrayToString(msg.data)}`)
+    console.log(`received: ${uint8ArrayToString(msg.data)} from ${msg.from}`)
   })
 
   
@@ -81,14 +81,5 @@ const express = require('express')
   app.listen(port, () => {
     console.log('app listeneing on: ' + port)
   })
-
-  //setInterval(() => {
-  //  var today = new Date();
-  //  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  //  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  //  var dateTime = date+' '+time;
-  //  console.log('publishing: ', dateTime)
-  //  node.pubsub.publish(topic, uint8ArrayFromString(dateTime))
-  //}, 1000)
 
 })();
