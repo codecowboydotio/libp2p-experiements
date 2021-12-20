@@ -11,6 +11,8 @@ const MulticastDNS = require('libp2p-mdns')
 const { fromString: uint8ArrayFromString } = require('uint8arrays/from-string')
 const { toString: uint8ArrayToString } = require('uint8arrays/to-string')
 const express = require('express')
+const bodyParser = require('body-parser')
+const request = require('request')
 
 ;(async () => {
   const node = await Libp2p.create({
@@ -47,9 +49,6 @@ const express = require('express')
     console.log('Discovered:', peerId.toB58String())
   })
 
-
-
-  
   console.log('My Node ID: ', node.peerId.toB58String())
 //  console.log(node)
 
@@ -63,20 +62,27 @@ const express = require('express')
 
   node.pubsub.on(topic, (msg) => {
     console.log(`received: ${uint8ArrayToString(msg.data)} from ${msg.from}`)
+    request(msg.data, { json: true }, (err, res, body) => {
+      console.log(body)
+    })  
   })
 
   
   app = express()
   port = process.env.PORT || 3000;
   
-  app.get('/config', (req, res) => {
+  app.use(bodyParser.json())
+
+  app.post('/config', (req, res) => {
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     console.log('publishing: ', dateTime)
-    node.pubsub.publish(topic, uint8ArrayFromString(dateTime))
     res.end('Published config event');
+    console.log(req.body)
+    //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
+    node.pubsub.publish(topic, req.body.ip)
   })
   app.listen(port, () => {
     console.log('app listeneing on: ' + port)
