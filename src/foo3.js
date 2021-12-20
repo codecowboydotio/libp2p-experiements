@@ -62,8 +62,11 @@ const request = require('request')
 
   node.pubsub.on(topic, (msg) => {
     console.log(`received: ${uint8ArrayToString(msg.data)} from ${msg.from}`)
-    request(msg.data, { json: true }, (err, res, body) => {
+    let conf_url = 'http://' + msg.data + ':8888/config'
+    request(conf_url, { json: true }, (err, res, body) => {
+      if (err) { return console.log(err); }
       console.log(body)
+      console.log(res)
     })  
   })
 
