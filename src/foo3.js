@@ -80,7 +80,7 @@ const request = require('request')
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
-    console.log('publishing: ', dateTime)
+    console.log('publishing: ' + dateTime + ' ' + req.body.ip)
     res.end('Published config event');
     console.log(req.body)
     //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
