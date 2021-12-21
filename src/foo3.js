@@ -83,7 +83,7 @@ const request = require('request')
     console.log('publishing: ' + dateTime + ' ' + req.body.ip)
     res.end('Published config event');
     console.log(req.body)
-    console.log(req.rawHeaders)
+    console.log(req.rawHeaders[1])
     //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
     node.pubsub.publish(topic, req.body.ip)
   })
