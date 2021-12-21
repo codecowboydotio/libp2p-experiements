@@ -80,14 +80,12 @@ const request = require('request')
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
-    console.log('publishing: ' + dateTime + ' ' + req.body.ip)
+    let ar_host_port = req.rawHeaders[1].split(":")
+    console.log('publishing: ' + dateTime + ' ' + ar_host_port[0])
     res.end('Published config event');
-    console.log(req.body)
-    console.log(req.rawHeaders[1])
-    let goober = req.rawHeaders[1].split(":")
-    console.log(goober)
+    //console.log(req.body)
     //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
-    node.pubsub.publish(topic, req.body.ip)
+    node.pubsub.publish(topic, ar_host_port[0])
   })
   app.listen(port, () => {
     console.log('app listeneing on: ' + port)
