@@ -84,6 +84,8 @@ const request = require('request')
     res.end('Published config event');
     console.log(req.body)
     console.log(req.rawHeaders[1])
+    let goober = req.rawHeaders[1].split(":")
+    console.log(goober)
     //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
     node.pubsub.publish(topic, req.body.ip)
   })
