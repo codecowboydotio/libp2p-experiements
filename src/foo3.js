@@ -65,7 +65,7 @@ const request = require('request')
     let conf_url = 'http://' + msg.data + ':8888/config'
     request(conf_url, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
-      //console.log(body)
+      console.log(body)
     })  
   })
 
