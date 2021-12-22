@@ -62,6 +62,7 @@ const request = require('request')
 
   node.pubsub.on(topic, (msg) => {
     console.log(`received: ${uint8ArrayToString(msg.data)} from ${msg.from}`)
+    console.log(`pulling config from ${msg.from}`)
     let conf_url = 'http://' + msg.data + ':8888/config'
     request(conf_url, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
@@ -82,9 +83,7 @@ const request = require('request')
     var dateTime = date+' '+time;
     let ar_host_port = req.rawHeaders[1].split(":")
     console.log('publishing: ' + dateTime + ' ' + ar_host_port[0])
-    res.end('Published config event');
-    //console.log(req.body)
-    //node.pubsub.publish(topic, uint8ArrayFromString(dateTime), req.body)
+    res.end('Published config event to all other nodes');
     node.pubsub.publish(topic, ar_host_port[0])
   })
   app.listen(port, () => {
