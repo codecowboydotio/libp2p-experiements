@@ -69,7 +69,7 @@ const request = require('request')
       console.log(body)
     })  
     // let's try to put the config
-    request.post({
+    request.put({
       headers: {'content-type' : 'application/x-www-form-urlencoded'},
       url: conf_url,
     }, function(error, response, body){
