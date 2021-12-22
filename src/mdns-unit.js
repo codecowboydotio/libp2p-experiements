@@ -67,11 +67,13 @@ const request = require('request')
     request(conf_url, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
       console.log(body)
+      const unit_config = body
     })  
     // let's try to put the config
     request.put({
       headers: {'content-type' : 'application/x-www-form-urlencoded'},
       url: conf_url,
+      body: unit_config
     }, function(error, response, body){
          console.log(body)
        })
