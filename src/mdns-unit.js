@@ -68,17 +68,25 @@ const request = require('request')
       if (err) { return console.log(err); }
       console.log('Body that I got is: ', body)
       const unit_config = body
+      console.log('------')
+      console.log(unit_config)
+      // let's try to put the config locally
+      request.put({
+        headers: {'content-type' : 'application/json'},
+        url: 'http://127.0.0.1:8888/config',
+        json: unit_config
+      }, function (error, response, bdy){
+           console.log(bdy)
+      }) //end request.put
     })  
     // let's try to put the config
-    console.log('------')
-    console.log(unit_config)
-    request.put({
-      headers: {'content-type' : 'application/json'},
-      url: 'http://127.0.0.1:8888/config',
-      json: unit_config
-    }, function(error, response, body){
-         console.log(body)
-       })
+    //request.put({
+    //  headers: {'content-type' : 'application/json'},
+    //  url: 'http://127.0.0.1:8888/config',
+    //  json: unit_config
+    //}, function(error, response, body){
+    //     console.log(body)
+    //   })
   })
 
   
