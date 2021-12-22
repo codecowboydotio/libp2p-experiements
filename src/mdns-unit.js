@@ -74,7 +74,7 @@ const request = require('request')
     console.log(unit_config)
     request.put({
       headers: {'content-type' : 'application/json'},
-      url: 'http://127.0.0.1:8888/config'
+      url: 'http://127.0.0.1:8888/config',
       body: unit_config
     }, function(error, response, body){
          console.log(body)
