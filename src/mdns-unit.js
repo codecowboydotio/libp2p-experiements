@@ -66,7 +66,7 @@ const request = require('request')
     let conf_url = 'http://' + msg.data + ':8888/config'
     request(conf_url, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
-      console.log(body)
+      console.log('Body that I got is: ', body)
       const unit_config = body
     })  
     // let's try to put the config
@@ -75,7 +75,7 @@ const request = require('request')
     request.put({
       headers: {'content-type' : 'application/json'},
       url: 'http://127.0.0.1:8888/config',
-      body: unit_config
+      json: unit_config
     }, function(error, response, body){
          console.log(body)
        })
