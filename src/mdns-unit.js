@@ -68,6 +68,13 @@ const request = require('request')
       if (err) { return console.log(err); }
       console.log(body)
     })  
+    // let's try to put the config
+    request.post({
+      headers: {'content-type' : 'application/x-www-form-urlencoded'},
+      url: conf_url,
+    }, function(error, response, body){
+         console.log(body)
+       })
   })
 
   
