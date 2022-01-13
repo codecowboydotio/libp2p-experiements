@@ -79,14 +79,6 @@ const request = require('request')
            console.log('Applied body to local unit instance, respose is: ', bdy)
       }) //end request.put
     })  
-    // let's try to put the config
-    //request.put({
-    //  headers: {'content-type' : 'application/json'},
-    //  url: 'http://127.0.0.1:8888/config',
-    //  json: unit_config
-    //}, function(error, response, body){
-    //     console.log(body)
-    //   })
   })
 
   
