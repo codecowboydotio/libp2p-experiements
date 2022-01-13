@@ -58,7 +58,7 @@ const request = require('request')
 
   const topic = 'news'
   node.pubsub.subscribe(topic)
-  console.log('pubsub subscribe')
+  console.log(`pubsub subscribed to topic: ${topic}`)
 
   node.pubsub.on(topic, (msg) => {
     console.log(`received: ${uint8ArrayToString(msg.data)} from ${msg.from}`)
@@ -66,17 +66,17 @@ const request = require('request')
     let conf_url = 'http://' + msg.data + ':8888/config'
     request(conf_url, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
-      console.log('Body that I got is: ', body)
+      console.log('Sent request to unit, Body that I got is: ', body)
       const unit_config = body
-      console.log('------')
-      console.log(unit_config)
+      //console.log('------')
+      //console.log(unit_config)
       // let's try to put the config locally
       request.put({
         headers: {'content-type' : 'application/json'},
         url: 'http://127.0.0.1:8888/config',
         json: unit_config
       }, function (error, response, bdy){
-           console.log(bdy)
+           console.log('Applied body to local unit instance, respose is: ', bdy)
       }) //end request.put
     })  
     // let's try to put the config
@@ -106,7 +106,7 @@ const request = require('request')
     node.pubsub.publish(topic, ar_host_port[0])
   })
   app.listen(port, () => {
-    console.log('app listeneing on: ' + port)
+    console.log('REST config endpoint listeneing on: ' + port)
   })
 
 })();
